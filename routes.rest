@@ -1,0 +1,5 @@
+GET http://localhost:3000/contacts
+GET http://localhost:3000/69fea616a0368e6c459121a4
+GET http://localhost:3000/69fea646a0368e6c459121a5
+GET http://localhost:3000/69fea676a0368e6c459121a6
+# the request above returns a json object with all professional data for Nathan Birch. No database is connected.
