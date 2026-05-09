@@ -1,0 +1,9 @@
+{
+    "contact": {
+        "firstName": "Jane",
+        "lastName": "Smith",
+        "email": "jane.smith@example.com",
+        "favoriteColor": "pink",
+        "birthday": "2020-01-01"
+    }
+}
