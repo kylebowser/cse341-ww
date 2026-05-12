@@ -5,6 +5,6 @@ routes.get('/', baseControl.getData);
 
 routes.get('/contacts', baseControl.getAll);
 
-routes.get('/:id', baseControl.getSingle);
+routes.get('/contacts/:id', baseControl.getSingle);
 
 module.exports = routes;
