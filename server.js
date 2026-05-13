@@ -4,6 +4,9 @@ const MongoClient = require('mongodb').MongoClient;
 const mongodb = require('./dataBase/connect');
 //const professionalRoutes = require('./routes/professional');
 const base = require('./routes/index');
+const swaggerFile = require('./swagger_output.json');
+const swaggerUi = require('swagger-ui-express');
+
 
 const port = process.env.PORT || 3000;
 const app = express();
@@ -24,3 +27,5 @@ mongodb.initDb((err, mongodb) => {
     console.log(`Connected to DB and listening on ${port}`);
   }
 });
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));

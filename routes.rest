@@ -2,4 +2,27 @@ GET http://localhost:3000/contacts
 GET http://localhost:3000/contacts/69fea616a0368e6c459121a4
 GET http://localhost:3000/contacts/69fea646a0368e6c459121a5
 GET http://localhost:3000/contacts/69fea676a0368e6c459121a6
-# the request above returns a json object with all professional data for Nathan Birch. No database is connected.
+
+POST http://localhost:3000/contacts/ HTTP/1.1
+content-type: application/json
+
+{
+    "firstName": "The",
+    "lastName": "Man",
+    "email": "theman@test.com",
+    "favoriteColor": "Slate",
+    "birthday": "01/01/2003"
+}
+
+PUT http://localhost:3000/contacts/69fea616a0368e6c459121a4 HTTP/1.1
+content-type: application/json
+
+{
+    "firstName": "Kyle",
+    "lastName": "Bowser",
+    "email": "kyle.bowser@test.com",
+    "favoriteColor": "ruby",
+    "birthday": "1990-02-02"
+}
+
+DELETE http://localhost:3000/contacts/6a03c15842ac7e56b4885d6a HTTP/1.1
