@@ -2,29 +2,44 @@ const { response } = require('express');
 const mongodb = require('../dataBase/connect');
 const ObjectId = require('mongodb').ObjectId;
 
-const getData = async (req, res, next) => {
-  const result = await mongodb.getDb().db().collection('contacts').find();
-  result.toArray().then((lists) => {
+const getData = (req, res) => {
+ mongodb.getDb().db().collection('contacts').find()
+  .toArray((err, lists) => {
+    if (err) {
+      res.status(400).json({ message: err });
+    }
+  
     res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(lists[0]); // we just need the first one (the only one)
+    res.status(200).json(lists); // we just need the first one (the only one)
   });
 };
 
-const getAll = async (req, res) => {
-    const result = await mongodb.getDb().db().collection('contacts').find();
-    result.toArray().then((contacts) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(contacts);
-    });
+const getAll = (req, res) => {
+ mongodb.getDb().db().collection('contacts').find()
+  .toArray((err, lists) => {
+    if (err) {
+      res.status(400).json({ message: err });
+    }
+  
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(lists); // we just need the first one (the only one)
+  });
 };
 
-const getSingle = async (req, res) => {
+const getSingle = (req, res) => {
+    if (!ObjectId.isValid(req.params.id)) {
+        res.status(400).json('Must use a valid contact id to find a contact.');
+    }
     const id = new ObjectId(req.params.id);
-    const result = await mongodb.getDb().db().collection('contacts').find({ _id: id });
-    result.toArray().then((contacts) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(contacts[0]);
-    });
+    mongodb.getDb().db().collection('contacts').find({ _id: id })
+      .toArray((err, lists) => {
+    if (err) {
+      res.status(400).json({ message: err });
+    }
+  
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(lists[0]); // we just need the first one (the only one)
+  });
 };
 
 const createContact = async (req, res) => {
@@ -43,6 +58,9 @@ const createContact = async (req, res) => {
 };
 
 const updateContact = async (req, res) => {
+    if (!ObjectId.isValid(req.params.id)) {
+        res.status(400).json('Must use a valid contact id to update a contact.');
+    }
     const id = new ObjectId(req.params.id);
     const contact = {
         firstName: req.body.firstName,
@@ -59,6 +77,9 @@ const updateContact = async (req, res) => {
 };
 
 const deleteContact = async (req, res) => {
+    if (!ObjectId.isValid(req.params.id)) {
+        res.status(400).json('Must use a valid contact id to delete a contact.');
+    }
     const id = new ObjectId(req.params.id);
     const result = await mongodb.getDb().db().collection('contacts').deleteOne({ _id: id });
     if (result.deletedCount > 0) {

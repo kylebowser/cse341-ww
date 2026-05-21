@@ -25,4 +25,20 @@ content-type: application/json
     "birthday": "1990-02-02"
 }
 
+{
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@test.com",
+    "favoriteColor": "yellow",
+    "birthday": "1991-03-03"
+}
+
+{
+    "firstName": "Jane",
+    "lastName": "Dover",
+    "email": "jane.dover@test.com",
+    "favoriteColor": "charcol",
+    "birthday": "1998-08-02"
+}
+
 DELETE http://localhost:3000/contacts/6a03c15842ac7e56b4885d6a HTTP/1.1
